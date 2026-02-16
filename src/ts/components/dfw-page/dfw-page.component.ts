@@ -1,6 +1,8 @@
 import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
+import templateHtml from "./dfw-page.component.html?raw";
+
 export class DfwPageComponent extends Component {
   public static tagName = "dfw-page";
 
@@ -21,17 +23,13 @@ export class DfwPageComponent extends Component {
   }
 
   protected requiredAttributes(): string[] {
-    return [];
+    return ["title", "html"];
   }
 
-  protected async template() {
+  protected template(): string | null {
     if (hasChildNodesTrim(this)) {
       return null;
-    } else {
-      const { default: template } = await import(
-        "./dfw-page.component.pug"
-      );
-      return template(this.scope);
     }
+    return templateHtml;
   }
 }

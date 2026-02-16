@@ -1,6 +1,7 @@
 import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
+import type { MarkdownContent } from "../../types/index.js";
 import * as aboutContent from "../../../content/about.md";
 import * as qualityContent from "../../../content/quality.md";
 
@@ -22,12 +23,12 @@ export class DfwAppComponent extends Component {
 
   public scope = {
     about: {
-      title: (aboutContent as any).attributes?.title || "Über uns",
-      html: (aboutContent as any).html || "",
+      title: (aboutContent as MarkdownContent).attributes?.title || "Über uns",
+      html: (aboutContent as MarkdownContent).html || "",
     },
     quality: {
-      title: (qualityContent as any).attributes?.title || "Qualität",
-      html: (qualityContent as any).html || "",
+      title: (qualityContent as MarkdownContent).attributes?.title || "Qualität",
+      html: (qualityContent as MarkdownContent).html || "",
     },
     currentYear: new Date().getFullYear(),
   };
