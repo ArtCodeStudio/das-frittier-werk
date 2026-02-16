@@ -30,11 +30,11 @@ Auf GitHub: Datei bearbeiten → speichern → nach Deploy ist es live.
 
 ## Deployment (GitHub Pages)
 
-1. Repo auf GitHub (z. B. `ArtCodeStudio/das-frittier-werk`).
+1. Repo auf GitHub (z. B. `ArtCodeStudio/das-frittierwerk`).
 2. **Settings → Pages → Source:** **GitHub Actions** wählen.
 3. Workflow: `.github/workflows/node-gh-pages.yml` — bei Push auf `main` wird gebaut und deployt.
 
-URL: `https://artcodestudio.github.io/das-frittier-werk/` (oder Custom Domain).
+URL: `https://artcodestudio.github.io/das-frittierwerk/` (oder Custom Domain).
 
 ---
 
