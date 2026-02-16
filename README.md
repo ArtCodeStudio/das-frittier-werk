@@ -7,7 +7,7 @@ Offizielle Website des Imbiss **Das Frittierwerk** (Wurster Nordseeküste). Stat
 ## Funktionen
 
 - **Speisekarte** — `menu.yml`, Kategorien und Preise
-- **Kontakt & Anfahrt** — `contact.yml`, OpenStreetMap (OpenLayers)
+- **Kontakt** — `contact.yml`, OpenStreetMap (OpenLayers)
 - **Über uns / Qualität** — Markdown-Seiten
 - **Galerie** — Bilder über `gallery.yml`, Assets in `src/assets/gallery/`
 - **Navigation** — Einzelseite mit Ankerlinks zu allen Bereichen

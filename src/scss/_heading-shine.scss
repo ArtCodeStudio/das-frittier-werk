@@ -5,18 +5,17 @@
 }
 
 // Metallic gradient effect for section titles and labels.
-// Element-relative gradient (no background-attachment: fixed) so titles stay
-// visible when scrolling and without mouse. --shine-x/--shine-y still shift the
-// highlight (desktop: mouse; mobile: 50% 50%).
+// --shine-x: from mouse (desktop) or 50% (mobile). --shine-y: from scroll position.
+// Tighter ellipse and stronger contrast so the scroll-driven shine stays clearly visible.
 .section-title,
 .contact-label,
 .menu-category__title {
   background: radial-gradient(
-    ellipse 90% 70% at var(--shine-x) var(--shine-y),
+    ellipse 75% 55% at var(--shine-x) var(--shine-y),
     $cream 0%,
-    $gold-light 20%,
-    $gold 45%,
-    $gold-dark 75%,
+    $gold-light 15%,
+    $gold 38%,
+    $gold-dark 65%,
     $rust 100%
   );
   background-clip: text;

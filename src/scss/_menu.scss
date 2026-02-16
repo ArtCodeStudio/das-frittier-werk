@@ -1,6 +1,8 @@
 // Speisekarte specific styles
 .menu-category {
   margin-bottom: 2rem;
+  break-inside: avoid;
+  page-break-inside: avoid;
 
   &__title {
     font-family: $headings-font-family;
@@ -64,16 +66,19 @@
   padding: 2rem 0;
 }
 
+// Multi-column layout: categories flow into columns, no row alignment.
+// Shorter blocks don't leave gaps; columns fill independently like a masonry flow.
 .menu-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem 3rem;
+  column-count: 1;
+  column-gap: 2.5rem;
 
   @media (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
+    column-count: 2;
   }
 
   @media (min-width: 1200px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    column-count: 3;
+    column-gap: 3rem;
   }
 }
+

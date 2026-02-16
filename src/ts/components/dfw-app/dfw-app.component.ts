@@ -10,11 +10,11 @@ export class DfwAppComponent extends Component {
   protected autobind = true;
 
   private shineRafId: number | null = null;
+  private readonly boundUpdateShineFromScroll = () => this.updateShineFromScroll();
   private readonly boundUpdateShineFromPointer = (e: MouseEvent) =>
     this.updateShineFromPointer(e);
-  private readonly boundUpdateShineFromViewport = () =>
-    this.updateShineFromViewport();
-  private usePointer = false;
+  private shineX = "50%";
+  private shineY = "50%";
 
   static get observedAttributes(): string[] {
     return [];
@@ -33,37 +33,48 @@ export class DfwAppComponent extends Component {
   };
 
   private setShine(x: string, y: string): void {
+    this.shineX = x;
+    this.shineY = y;
     document.documentElement.style.setProperty("--shine-x", x);
     document.documentElement.style.setProperty("--shine-y", y);
+  }
+
+  private updateShineFromScroll(): void {
+    if (this.shineRafId !== null) return;
+    this.shineRafId = requestAnimationFrame(() => {
+      this.shineRafId = null;
+      const scrollY = window.scrollY ?? document.documentElement.scrollTop;
+      const innerHeight = window.innerHeight;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const maxScroll = Math.max(0, scrollHeight - innerHeight);
+      const progress = maxScroll > 0 ? scrollY / maxScroll : 0;
+      // 0% at top, 100% at middle, 0% at bottom (one full cycle)
+      const yPercent =
+        progress <= 0.5 ? progress * 200 : (1 - progress) * 200;
+      this.setShine(this.shineX, `${Math.min(100, Math.max(0, yPercent))}%`);
+    });
   }
 
   private updateShineFromPointer(e: MouseEvent): void {
     if (this.shineRafId !== null) return;
     this.shineRafId = requestAnimationFrame(() => {
       this.shineRafId = null;
-      const x = (e.clientX / window.innerWidth) * 100;
-      const y = (e.clientY / window.innerHeight) * 100;
-      this.setShine(`${x}%`, `${y}%`);
+      const xPercent = (e.clientX / window.innerWidth) * 100;
+      this.setShine(`${xPercent}%`, this.shineY);
     });
-  }
-
-  private updateShineFromViewport(): void {
-    this.setShine("50%", "50%");
   }
 
   protected connectedCallback() {
     super.connectedCallback();
     this.init(DfwAppComponent.observedAttributes);
 
-    this.setShine("50%", "50%");
-    this.usePointer = window.matchMedia("(pointer: fine)").matches;
-    if (this.usePointer) {
+    this.updateShineFromScroll();
+    window.addEventListener("scroll", this.boundUpdateShineFromScroll, {
+      passive: true,
+    });
+    window.addEventListener("resize", this.boundUpdateShineFromScroll);
+    if (window.matchMedia("(pointer: fine)").matches) {
       window.addEventListener("mousemove", this.boundUpdateShineFromPointer);
-    } else {
-      window.addEventListener("scroll", this.boundUpdateShineFromViewport, {
-        passive: true,
-      });
-      window.addEventListener("resize", this.boundUpdateShineFromViewport);
     }
   }
 
@@ -72,21 +83,9 @@ export class DfwAppComponent extends Component {
       cancelAnimationFrame(this.shineRafId);
       this.shineRafId = null;
     }
-    if (this.usePointer) {
-      window.removeEventListener(
-        "mousemove",
-        this.boundUpdateShineFromPointer
-      );
-    } else {
-      window.removeEventListener(
-        "scroll",
-        this.boundUpdateShineFromViewport
-      );
-      window.removeEventListener(
-        "resize",
-        this.boundUpdateShineFromViewport
-      );
-    }
+    window.removeEventListener("scroll", this.boundUpdateShineFromScroll);
+    window.removeEventListener("resize", this.boundUpdateShineFromScroll);
+    window.removeEventListener("mousemove", this.boundUpdateShineFromPointer);
     super.disconnectedCallback();
   }
 
