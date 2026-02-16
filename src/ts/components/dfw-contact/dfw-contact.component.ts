@@ -8,6 +8,7 @@ interface ContactData {
   phone: string;
   address: string;
   hours: string;
+  directions_url?: string;
   order_hint?: string;
   website?: string;
   email?: string;

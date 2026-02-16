@@ -11,6 +11,10 @@ email: "moin@dasfrittierwerk.de"
 social:
   instagram: "https://www.instagram.com/dasfrittierwerk"
 
+# Routing/Anfahrt: OpenStreetMap Directions (frei, siehe wiki.openstreetmap.org/wiki/Routing)
+# Destination lat,lon – opens OSM routing so user can enter start and get route
+directions_url: "https://www.openstreetmap.org/directions?to=53.7247%2C8.5567"
+
 # OpenStreetMap Koordinaten (OpenLayers)
 # Latitude und Longitude des Restaurants
 map:
