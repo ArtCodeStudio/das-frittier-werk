@@ -1,5 +1,5 @@
 {
-  "name": "das-frittier-werk",
+  "name": "das-frittierwerk",
   "version": "1.0.0",
   "type": "module",
   "description": "Website for Das Frittierwerk restaurant",
@@ -21,7 +21,7 @@
   ],
   "author": "Pascal Garber <pascal@artandcode.studio>",
   "license": "MIT",
-  "repository": "git@github.com:ArtCodeStudio/das-frittier-werk.git",
+  "repository": "git@github.com:ArtCodeStudio/das-frittierwerk.git",
   "engines": {
     "node": ">=24"
   },

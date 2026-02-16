@@ -13,6 +13,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   console.debug('vite.config.js', { command, mode, ssrBuild })
   return {
     mode,
+    base: mode === 'production' ? '/das-frittierwerk/' : '/',
     root: basedir,
     assetsInclude: ['**/*.svg'],
     build: {
