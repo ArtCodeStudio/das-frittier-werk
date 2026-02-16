@@ -61,3 +61,6 @@ section {
   );
   margin: 2rem 0;
 }
+
+// Metallic shine for headings (must come after .section-title so gradient overrides color)
+@import './heading-shine';

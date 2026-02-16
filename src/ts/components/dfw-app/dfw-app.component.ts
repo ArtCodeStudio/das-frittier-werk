@@ -9,6 +9,13 @@ export class DfwAppComponent extends Component {
 
   protected autobind = true;
 
+  private shineRafId: number | null = null;
+  private readonly boundUpdateShineFromPointer = (e: MouseEvent) =>
+    this.updateShineFromPointer(e);
+  private readonly boundUpdateShineFromViewport = () =>
+    this.updateShineFromViewport();
+  private usePointer = false;
+
   static get observedAttributes(): string[] {
     return [];
   }
@@ -25,9 +32,62 @@ export class DfwAppComponent extends Component {
     currentYear: new Date().getFullYear(),
   };
 
+  private setShine(x: string, y: string): void {
+    document.documentElement.style.setProperty("--shine-x", x);
+    document.documentElement.style.setProperty("--shine-y", y);
+  }
+
+  private updateShineFromPointer(e: MouseEvent): void {
+    if (this.shineRafId !== null) return;
+    this.shineRafId = requestAnimationFrame(() => {
+      this.shineRafId = null;
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      this.setShine(`${x}%`, `${y}%`);
+    });
+  }
+
+  private updateShineFromViewport(): void {
+    this.setShine("50%", "50%");
+  }
+
   protected connectedCallback() {
     super.connectedCallback();
     this.init(DfwAppComponent.observedAttributes);
+
+    this.setShine("50%", "50%");
+    this.usePointer = window.matchMedia("(pointer: fine)").matches;
+    if (this.usePointer) {
+      window.addEventListener("mousemove", this.boundUpdateShineFromPointer);
+    } else {
+      window.addEventListener("scroll", this.boundUpdateShineFromViewport, {
+        passive: true,
+      });
+      window.addEventListener("resize", this.boundUpdateShineFromViewport);
+    }
+  }
+
+  protected disconnectedCallback(): void {
+    if (this.shineRafId !== null) {
+      cancelAnimationFrame(this.shineRafId);
+      this.shineRafId = null;
+    }
+    if (this.usePointer) {
+      window.removeEventListener(
+        "mousemove",
+        this.boundUpdateShineFromPointer
+      );
+    } else {
+      window.removeEventListener(
+        "scroll",
+        this.boundUpdateShineFromViewport
+      );
+      window.removeEventListener(
+        "resize",
+        this.boundUpdateShineFromViewport
+      );
+    }
+    super.disconnectedCallback();
   }
 
   protected requiredAttributes(): string[] {
