@@ -1,6 +1,8 @@
 import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
+import templateHtml from "./dfw-navbar.component.html?raw";
+
 export class DfwNavbarComponent extends Component {
   public static tagName = "dfw-navbar";
 
@@ -53,14 +55,10 @@ export class DfwNavbarComponent extends Component {
     return [];
   }
 
-  protected async template() {
+  protected template(): string | null {
     if (hasChildNodesTrim(this)) {
       return null;
-    } else {
-      const { default: template } = await import(
-        "./dfw-navbar.component.pug"
-      );
-      return template(this.scope);
     }
+    return templateHtml;
   }
 }

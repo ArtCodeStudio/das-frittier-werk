@@ -1,6 +1,7 @@
 import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
+import templateHtml from "./dfw-gallery.component.html?raw";
 import _gallery from "../../../content/gallery.yml";
 
 interface GalleryImage {
@@ -62,14 +63,10 @@ export class DfwGalleryComponent extends Component {
     return [];
   }
 
-  protected async template() {
+  protected template(): string | null {
     if (hasChildNodesTrim(this)) {
       return null;
-    } else {
-      const { default: template } = await import(
-        "./dfw-gallery.component.pug"
-      );
-      return template(this.scope);
     }
+    return templateHtml;
   }
 }

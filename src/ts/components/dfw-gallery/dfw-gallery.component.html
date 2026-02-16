@@ -1,0 +1,16 @@
+<div class="container">
+  <h2 class="section-title">Galerie</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item" rv-each-image="images" rv-on-click="openLightbox" rv-data-src="image.src" rv-data-alt="image.alt" rv-data-caption="image.caption">
+      <img class="gallery-image" rv-src="image.src" rv-alt="image.alt" loading="lazy">
+      <div class="gallery-caption" rv-if="image.caption" rv-text="image.caption"></div>
+    </div>
+  </div>
+  <div class="gallery-lightbox" rv-show="lightboxOpen" rv-on-click="closeLightbox">
+    <div class="gallery-lightbox__content" rv-on-click="closeLightbox">
+      <img class="gallery-lightbox__image" rv-src="lightboxSrc" rv-alt="lightboxAlt">
+      <p class="gallery-lightbox__caption" rv-if="lightboxCaption" rv-text="lightboxCaption"></p>
+      <button class="gallery-lightbox__close" type="button" rv-on-click="closeLightbox" aria-label="Schließen">&times;</button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
+import templateHtml from "./dfw-menu.component.html?raw";
 import _menu from "../../../content/menu.yml";
 
 interface MenuItem {
@@ -58,14 +59,10 @@ export class DfwMenuComponent extends Component {
     return [];
   }
 
-  protected async template() {
+  protected template(): string | null {
     if (hasChildNodesTrim(this)) {
       return null;
-    } else {
-      const { default: template } = await import(
-        "./dfw-menu.component.pug"
-      );
-      return template(this.scope);
     }
+    return templateHtml;
   }
 }

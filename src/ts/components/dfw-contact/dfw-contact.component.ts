@@ -1,6 +1,7 @@
 import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
+import templateHtml from "./dfw-contact.component.html?raw";
 import _contact from "../../../content/contact.yml";
 
 interface ContactData {
@@ -117,14 +118,10 @@ export class DfwContactComponent extends Component {
     return [];
   }
 
-  protected async template() {
+  protected template(): string | null {
     if (hasChildNodesTrim(this)) {
       return null;
-    } else {
-      const { default: template } = await import(
-        "./dfw-contact.component.pug"
-      );
-      return template(this.scope);
     }
+    return templateHtml;
   }
 }

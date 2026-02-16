@@ -1,6 +1,7 @@
 import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
+import templateHtml from "./dfw-app.component.html?raw";
 import type { MarkdownContent } from "../../types/index.js";
 import * as aboutContent from "../../../content/about.md";
 import * as qualityContent from "../../../content/quality.md";
@@ -94,14 +95,10 @@ export class DfwAppComponent extends Component {
     return [];
   }
 
-  protected async template() {
+  protected template(): string | null {
     if (hasChildNodesTrim(this)) {
       return null;
-    } else {
-      const { default: template } = await import(
-        "./dfw-app.component.pug"
-      );
-      return template(this.scope);
     }
+    return templateHtml;
   }
 }

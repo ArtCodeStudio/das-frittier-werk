@@ -1,7 +1,6 @@
 import { defineConfig } from 'vite'
 import dns from 'dns'
 import { resolve } from 'path'
-import pugRollupPlugin from 'rollup-plugin-pug';
 import yamPlugin from '@modyfi/vite-plugin-yaml';
 import { plugin as mdPlugin } from 'vite-plugin-markdown';
 
@@ -25,9 +24,6 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         input: {
           'main': resolve(basedir, 'index.html'),
         },
-        plugins: [
-          pugRollupPlugin(),
-        ]
       }
     },
     plugins: [

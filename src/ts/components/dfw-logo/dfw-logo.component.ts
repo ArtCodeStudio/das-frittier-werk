@@ -1,6 +1,7 @@
 import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
+import templateHtml from "./dfw-logo.component.html?raw";
 import logoBase from "../../../assets/dasfrittierwerk_logo-animation.png?url";
 import logoGear from "../../../assets/dasfrittierwerk_logo-animation2.png?url";
 
@@ -27,14 +28,10 @@ export class DfwLogoComponent extends Component {
     return [];
   }
 
-  protected async template() {
+  protected template(): string | null {
     if (hasChildNodesTrim(this)) {
       return null;
-    } else {
-      const { default: template } = await import(
-        "./dfw-logo.component.pug"
-      );
-      return template(this.scope);
     }
+    return templateHtml;
   }
 }
