@@ -9,13 +9,16 @@ export class DfwNavbarComponent extends Component {
   protected autobind = true;
 
   static get observedAttributes(): string[] {
-    return [];
+    return ["has-about", "has-quality", "has-gallery"];
   }
 
   public scope = {
     scrollToSection: this.scrollToSection,
     mobileMenuOpen: false,
     toggleMobileMenu: this.toggleMobileMenu,
+    hasAbout: false,
+    hasQuality: false,
+    hasGallery: false,
   };
 
   constructor() {

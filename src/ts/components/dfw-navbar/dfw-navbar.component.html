@@ -11,13 +11,13 @@
         <li class="nav-item">
           <a class="nav-link" href="#speisekarte" rv-on-click="scrollToSection">Speisekarte</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" rv-if="hasAbout">
           <a class="nav-link" href="#ueber-uns" rv-on-click="scrollToSection">Über uns</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" rv-if="hasQuality">
           <a class="nav-link" href="#qualitaet" rv-on-click="scrollToSection">Qualität</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" rv-if="hasGallery">
           <a class="nav-link" href="#galerie" rv-on-click="scrollToSection">Galerie</a>
         </li>
         <li class="nav-item">

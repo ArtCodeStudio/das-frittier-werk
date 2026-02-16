@@ -1,4 +1,4 @@
-<dfw-navbar></dfw-navbar>
+<dfw-navbar rv-co-has-about="hasAbout" rv-co-has-quality="hasQuality" rv-co-has-gallery="hasGallery"></dfw-navbar>
 <section id="hero" class="hero-section text-center">
   <div class="container">
     <dfw-logo class="mb-4"></dfw-logo>
@@ -11,16 +11,16 @@
 <section id="speisekarte">
   <dfw-menu></dfw-menu>
 </section>
-<hr class="gold-divider">
-<section id="ueber-uns">
+<hr class="gold-divider" rv-if="hasAbout">
+<section id="ueber-uns" rv-if="hasAbout">
   <dfw-page rv-co-title="about.title" rv-co-html="about.html"></dfw-page>
 </section>
-<hr class="gold-divider">
-<section id="qualitaet">
+<hr class="gold-divider" rv-if="hasQuality">
+<section id="qualitaet" rv-if="hasQuality">
   <dfw-page rv-co-title="quality.title" rv-co-html="quality.html"></dfw-page>
 </section>
-<hr class="gold-divider">
-<section id="galerie">
+<hr class="gold-divider" rv-if="hasGallery">
+<section id="galerie" rv-if="hasGallery">
   <dfw-gallery></dfw-gallery>
 </section>
 <hr class="gold-divider">

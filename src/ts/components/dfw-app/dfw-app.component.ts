@@ -5,6 +5,19 @@ import templateHtml from "./dfw-app.component.html?raw";
 import type { MarkdownContent } from "../../types/index.js";
 import * as aboutContent from "../../../content/about.md";
 import * as qualityContent from "../../../content/quality.md";
+import galleryData from "../../../content/gallery.yml";
+
+interface GalleryYaml {
+  images?: unknown[];
+}
+
+function hasContent(html: string | undefined): boolean {
+  return typeof html === "string" && html.trim().length > 0;
+}
+
+function hasGalleryImages(data: GalleryYaml): boolean {
+  return Array.isArray(data?.images) && data.images.length > 0;
+}
 
 export class DfwAppComponent extends Component {
   public static tagName = "dfw-app";
@@ -32,6 +45,9 @@ export class DfwAppComponent extends Component {
       html: (qualityContent as MarkdownContent).html || "",
     },
     currentYear: new Date().getFullYear(),
+    hasAbout: hasContent((aboutContent as MarkdownContent).html),
+    hasQuality: hasContent((qualityContent as MarkdownContent).html),
+    hasGallery: hasGalleryImages(galleryData as GalleryYaml),
   };
 
   private setShine(x: string, y: string): void {
