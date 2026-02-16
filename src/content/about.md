@@ -1,13 +1,7 @@
 ---
-title: "Über uns"
+title: "Das Frittierwerk"
 ---
 
-Willkommen beim **Frittierwerk** an der Wurster Nordseeküste!
+Da, wo Imbiss auf Restaurant-Feeling trifft und Pommes mehr sind als nur Beilage. Wir nennen das: Imbisstaurant. Klingt ungewöhnlich? Ist es auch – und genau so soll's sein.
 
-Wir sind ein Imbiss mit Leidenschaft für krosses Hähnchen, knusprige Pommes und herzhafte Spezialitäten. Unser Team bereitet jede Portion frisch und mit Liebe zu, damit du den perfekten Genuss erleben kannst.
-
-Ob knuspriges Hähnchen, zarter Backfisch oder unsere vegetarischen Falafel-Bällchen – bei uns findest du für jeden Geschmack das Richtige.
-
-**Komm vorbei und überzeuge dich selbst!**
-
-Dir schmeckt's? Zeige uns und anderen dein Frittierwerk auf Instagram: **[@dasfrittierwerk](https://www.instagram.com/dasfrittierwerk)**.
+Hinter der heißen Theke und den knusprigen Ideen stecken **Markus Grade** und **Frederik Packwitz**. Zwei Jungs mit Profi-Erfahrung aus der gehobenen Gastronomie, die beschlossen haben: Geschmack gehört nicht nur auf weiße Tischdecken! Also wurde nicht lange gefackelt: Vom Rohbau bis zur ersten Portion Pommes – hier steckt in allem echte Eigeninitiative. Am 20. Februar 2026 geht's endlich los und bringt krossen Imbiss nach Cuxhaven.

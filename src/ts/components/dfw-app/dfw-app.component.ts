@@ -59,6 +59,7 @@ export class DfwAppComponent extends Component {
     },
     currentYear: new Date().getFullYear(),
     contact: (contactData as unknown) as ContactYaml,
+    telHref: `tel:${((contactData as unknown) as ContactYaml).phone?.replace(/\s/g, "") ?? ""}`,
     hasAbout: hasContent((aboutContent as MarkdownContent).html),
     hasQuality: hasContent((qualityContent as MarkdownContent).html),
     hasGallery: hasGalleryImages(galleryData as GalleryYaml),

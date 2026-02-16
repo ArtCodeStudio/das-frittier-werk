@@ -1,16 +1,9 @@
 ---
-title: "Qualität"
+title: "Unsere Qualität"
 ---
 
-Qualität steht bei uns an erster Stelle. Wir legen großen Wert auf **frische Zutaten** und eine **sorgfältige Zubereitung**.
+Das Frittierwerk steht für kompromisslosen Geschmack. Hier wird nichts dem Zufall überlassen: Das Frittierwerk legt Wert auf **frische Zutaten**, kreiert eigene Gewürze und paniert jede Spezialität selbst. Auch Kartoffelsalat und Currysoße entstehen im Haus. Letztere darf sogar zwei Tage reifen, bevor sie den vollen Geschmack entfaltet.
 
-### Unsere Grundsätze
+Für das perfekte krosse Ergebnis sorgt eine moderne **Hochdruck-Fritteuse**. Sie arbeitet mit weniger Temperatur und mehr Druck – das Ergebnis: außen voll kross, innen saftig. So bekommt Fast Food plötzlich Charakter, nämlich echten.
 
-- **Frische Zutaten**: Wir beziehen unsere Produkte von regionalen Lieferanten
-- **Täglich frisch zubereitet**: Jede Portion wird frisch für dich zubereitet
-- **Hochwertige Öle**: Wir verwenden ausschließlich hochwertige Frittieröle
-- **Hausgemachte Saucen**: Viele unserer Dips und Saucen sind hausgemacht
-
-### Für jeden etwas dabei
-
-Von krossem Hähnchen über zarten Backfisch bis hin zu vegetarischen Falafel-Bällchen – wir bieten eine vielfältige Auswahl für jeden Geschmack. Auch für die kleinen Gäste haben wir ein eigenes Kids-Menü zusammengestellt.
+Das Frittierwerk steht für Qualität, die du siehst, riechst und schmeckst – frisch produziert, mit Leidenschaft serviert und garantiert **Voll auf die Fritte!**
