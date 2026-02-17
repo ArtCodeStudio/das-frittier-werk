@@ -4,6 +4,15 @@ title: "Impressum"
 
 ## Angaben gemäß § 5 TMG
 
-**Platzhalter:** Bitte ersetzen Sie diesen Text mit den rechtlich erforderlichen Angaben für Ihr Impressum (Betreiber, Anschrift, Kontakt, ggf. Umsatzsteuer-ID, Verantwortlich für Inhalte, etc.).
+**Markus Grade** und **Frederik Packwitz**  
+Feuerweg 1  
+27639 Wurster Nordseeküste  
 
-Diese Datei kann direkt in GitHub bearbeitet werden: [src/content/impressum.md](src/content/impressum.md)
+**Kontakt**  
+Telefon: 04741 9818661  
+E-Mail: moin@dasfrittierwerk.de  
+
+## Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
+
+Markus Grade und Frederik Packwitz  
+Feuerweg 1, 27639 Wurster Nordseeküste  
