@@ -1,3 +1,22 @@
 dfw-contact-map {
   display: block;
+  max-width: 100%;
+  position: relative;
+
+  .map-scroll-wrapper {
+      max-width: 3000px;
+      max-height: 400px;
+      overflow: auto;
+      img {
+        max-width: 3000px;
+        object-fit: cover;
+      }
+  }
+
+  .map-copyright {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      text-decoration: none;
+  }
 }

@@ -2,15 +2,32 @@ import { Component } from "@ribajs/core";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
 import templateHtml from "./dfw-contact-map.component.html?raw";
-import _contact from "../../../content/contact.yml";
 
-interface ContactData {
-  map: {
-    latitude: number;
-    longitude: number;
-    zoom: number;
-    marker_title: string;
+const MAP_IMAGE_URL = new URL("../../../assets/map.avif", import.meta.url).href;
+
+function debounce<T extends (...args: unknown[]) => void>(
+  fn: T,
+  ms: number
+): (...args: Parameters<T>) => void {
+  let timeoutId: ReturnType<typeof setTimeout>;
+  return (...args: Parameters<T>) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn(...args), ms);
   };
+}
+
+/**
+ * Scrolls the map wrapper so the image is centered (like mm-map in markus-morische-rechtsanwalt-website).
+ */
+function scrollToCenter(wrapper: HTMLElement): void {
+  wrapper.scrollLeft = (wrapper.scrollWidth - wrapper.clientWidth) / 2;
+  wrapper.scrollTop = (wrapper.scrollHeight - wrapper.clientHeight) / 2;
+}
+
+export interface DfwContactMapScope {
+  mapImageUrl: string;
+  scrollWrapperEl: HTMLDivElement | null;
+  center: () => void;
 }
 
 export class DfwContactMapComponent extends Component {
@@ -18,15 +35,17 @@ export class DfwContactMapComponent extends Component {
 
   protected autobind = true;
 
-  private mapInitialized = false;
-
   static get observedAttributes(): string[] {
     return [];
   }
 
-  public scope = {
-    contact: (_contact as unknown) as ContactData,
+  public scope: DfwContactMapScope = {
+    mapImageUrl: MAP_IMAGE_URL,
+    scrollWrapperEl: null,
+    center: this.center.bind(this),
   };
+
+  private boundCenter = debounce(this.center.bind(this), 100);
 
   protected connectedCallback() {
     super.connectedCallback();
@@ -35,76 +54,21 @@ export class DfwContactMapComponent extends Component {
 
   protected async afterBind() {
     await super.afterBind();
-    await this.initMap();
+    // Center once (e.g. when img already cached and load already fired)
+    this.center();
+    window.addEventListener("resize", this.boundCenter, { passive: true });
   }
 
-  private async initMap() {
-    if (this.mapInitialized) return;
+  protected disconnectedCallback() {
+    window.removeEventListener("resize", this.boundCenter);
+    super.disconnectedCallback();
+  }
 
-    const mapContainer = this.querySelector("#contact-map") as HTMLElement;
-    if (!mapContainer) return;
-
-    const { Map, View } = await import("ol");
-    const { default: TileLayer } = await import("ol/layer/Tile");
-    const { default: OSM } = await import("ol/source/OSM");
-    const { default: VectorLayer } = await import("ol/layer/Vector");
-    const { default: VectorSource } = await import("ol/source/Vector");
-    const { default: Feature } = await import("ol/Feature");
-    const { default: Point } = await import("ol/geom/Point");
-    const { fromLonLat } = await import("ol/proj");
-    const { default: Style } = await import("ol/style/Style");
-    const { default: Icon } = await import("ol/style/Icon");
-
-    const { latitude, longitude, zoom } = this.scope.contact.map;
-    const center = fromLonLat([longitude, latitude]);
-
-    const marker = new Feature({
-      geometry: new Point(center),
-    });
-
-    const markerSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="48" viewBox="0 0 32 48">
-      <path d="M16 0C7.2 0 0 7.2 0 16c0 12 16 32 16 32s16-20 16-32C32 7.2 24.8 0 16 0z" fill="%23c4913b"/>
-      <circle cx="16" cy="16" r="8" fill="%231a0f0a"/>
-      <circle cx="16" cy="16" r="5" fill="%23c4913b"/>
-    </svg>`;
-
-    marker.setStyle(
-      new Style({
-        image: new Icon({
-          src:
-            "data:image/svg+xml," +
-            encodeURIComponent(markerSvg.replace(/%23/g, "#")),
-          anchor: [0.5, 1],
-          anchorXUnits: "fraction",
-          anchorYUnits: "fraction",
-          scale: 1,
-        }),
-      })
-    );
-
-    const vectorSource = new VectorSource({
-      features: [marker],
-    });
-
-    const vectorLayer = new VectorLayer({
-      source: vectorSource,
-    });
-
-    new Map({
-      target: mapContainer,
-      layers: [
-        new TileLayer({
-          source: new OSM(),
-        }),
-        vectorLayer,
-      ],
-      view: new View({
-        center,
-        zoom,
-      }),
-    });
-
-    this.mapInitialized = true;
+  public center(): void {
+    const wrapper = this.scope.scrollWrapperEl;
+    if (wrapper) {
+      scrollToCenter(wrapper);
+    }
   }
 
   protected requiredAttributes(): string[] {
