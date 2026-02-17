@@ -1,4 +1,5 @@
 import { Component } from "@ribajs/core";
+import { EventDispatcher } from "@ribajs/events";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
 import templateHtml from "./dfw-background-gears.component.html?raw";
@@ -8,30 +9,120 @@ import gear3Url from "../../../assets/gears/gear_03.svg?url";
 import gear4Url from "../../../assets/gears/gear_04.svg?url";
 import gear5Url from "../../../assets/gears/gear_05.svg?url";
 
+const ROUTER_VIEW_ID = "main";
+
+/** Min/max gear size (px). Kept so gears stay partially off-screen at edges. */
+const GEAR_SIZE_MIN = 140;
+const GEAR_SIZE_MAX = 400;
+/** Portion of gear that stays off-screen (e.g. 0.45 = 45% visible). */
+const VISIBLE_PORTION_MIN = 0.35;
+const VISIBLE_PORTION_MAX = 0.55;
+/** Top % bands (base) with jitter range ±%. */
+const TOP_BANDS: [number, number][] = [[10, 6], [30, 6], [50, 6], [70, 6], [90, 6]];
+
+interface GearDef {
+  src: string;
+  speed: number;
+  class: string;
+  maskStyle: Record<string, string>;
+  style: Record<string, string>;
+}
+
+function randomIn(min: number, max: number): number {
+  return min + Math.random() * (max - min);
+}
+
 export class DfwBackgroundGearsComponent extends Component {
   public static tagName = "dfw-background-gears";
 
   protected autobind = true;
 
   private shineRafId: number | null = null;
+  private resizeObserver: ResizeObserver | null = null;
+  private routerUnsubscribe: (() => void) | null = null;
   private readonly boundUpdateShineFromScroll = () => this.updateShineFromScroll();
   private readonly boundUpdateShineFromPointer = (e: MouseEvent) =>
     this.updateShineFromPointer(e);
+  private readonly boundUpdateHeightToPage = () => this.updateHeightToPage();
+  private readonly boundOnTransitionCompleted = () => this.onTransitionCompleted();
+  private readonly boundOnInitStateChange = (
+    _viewId: string,
+    _newStatus: unknown,
+    oldStatus: unknown,
+  ) => this.onInitStateChange(Boolean(oldStatus));
   private shineX = "10%";
   private shineY = "50%";
+
+  private static readonly GEAR_BASE = [
+    { src: gear1Url, speed: 0.22, class: "bg-gear--1", maskStyle: { "--gear-mask": `url("${gear1Url}")` } },
+    { src: gear2Url, speed: -0.28, class: "bg-gear--2", maskStyle: { "--gear-mask": `url("${gear2Url}")` } },
+    { src: gear3Url, speed: 0.26, class: "bg-gear--3", maskStyle: { "--gear-mask": `url("${gear3Url}")` } },
+    { src: gear4Url, speed: -0.2, class: "bg-gear--4", maskStyle: { "--gear-mask": `url("${gear4Url}")` } },
+    { src: gear5Url, speed: 0.32, class: "bg-gear--5", maskStyle: { "--gear-mask": `url("${gear5Url}")` } },
+  ] as const;
+
+  /** Set gears container height to full page height so gear positions (top: X%) distribute along the page. */
+  private updateHeightToPage(): void {
+    const h = document.documentElement.scrollHeight;
+    const px = `${h}px`;
+    const container = this.parentElement;
+    if (container?.classList.contains("background-gears")) {
+      (container as HTMLElement).style.height = px;
+    }
+    (this as unknown as HTMLElement).style.height = px;
+  }
+
+  /** Collapse gears container and remove gear nodes so document height is not preserved on page change. */
+  private collapseGears(): void {
+    const container = this.parentElement;
+    if (container?.classList.contains("background-gears")) {
+      (container as HTMLElement).style.height = "0";
+    }
+    (this as unknown as HTMLElement).style.height = "0";
+    this.scope.backgroundGears = [];
+    this.view?.update(this.scope);
+  }
+
+  /** Build gear list with random size/position; well distributed and only partially visible at edges. */
+  private buildGearsWithRandomLayout(): GearDef[] {
+    return DfwBackgroundGearsComponent.GEAR_BASE.map((base, i) => {
+      const size = Math.round(randomIn(GEAR_SIZE_MIN, GEAR_SIZE_MAX));
+      const visible = randomIn(VISIBLE_PORTION_MIN, VISIBLE_PORTION_MAX);
+      const offset = Math.round(size * (1 - visible));
+      const [bandBase, jitter] = TOP_BANDS[i];
+      const top = Math.max(2, Math.min(98, bandBase + randomIn(-jitter, jitter)));
+      const onLeft = i % 2 === 0;
+      const positionStyle: Record<string, string> = {
+        top: `${top}%`,
+        width: `${size}px`,
+        height: `${size}px`,
+        ...(onLeft ? { left: `-${offset}px` } : { right: `-${offset}px` }),
+      };
+      return {
+        ...base,
+        style: { ...base.maskStyle, ...positionStyle },
+      } as GearDef;
+    });
+  }
+
+  private onInitStateChange(isNavigation: boolean): void {
+    if (isNavigation) {
+      this.collapseGears();
+    }
+  }
+
+  private onTransitionCompleted(): void {
+    this.updateHeightToPage();
+    this.scope.backgroundGears = this.buildGearsWithRandomLayout();
+    this.view?.update(this.scope);
+  }
 
   static get observedAttributes(): string[] {
     return [];
   }
 
-  public scope = {
-    backgroundGears: [
-      { src: gear1Url, speed: 0.22, class: "bg-gear--1", maskStyle: { "--gear-mask": `url("${gear1Url}")` } },
-      { src: gear2Url, speed: -0.28, class: "bg-gear--2", maskStyle: { "--gear-mask": `url("${gear2Url}")` } },
-      { src: gear3Url, speed: 0.26, class: "bg-gear--3", maskStyle: { "--gear-mask": `url("${gear3Url}")` } },
-      { src: gear4Url, speed: -0.2, class: "bg-gear--4", maskStyle: { "--gear-mask": `url("${gear4Url}")` } },
-      { src: gear5Url, speed: 0.32, class: "bg-gear--5", maskStyle: { "--gear-mask": `url("${gear5Url}")` } },
-    ],
+  public scope: { backgroundGears: GearDef[] } = {
+    backgroundGears: [],
   };
 
   private setShine(x: string, y: string): void {
@@ -71,23 +162,42 @@ export class DfwBackgroundGearsComponent extends Component {
     super.connectedCallback();
     this.init(DfwBackgroundGearsComponent.observedAttributes);
 
+    this.scope.backgroundGears = this.buildGearsWithRandomLayout();
+    this.updateHeightToPage();
     this.updateShineFromScroll();
+
+    const dispatcher = EventDispatcher.getInstance(ROUTER_VIEW_ID);
+    dispatcher.on("initStateChange", this.boundOnInitStateChange);
+    dispatcher.on("transitionCompleted", this.boundOnTransitionCompleted);
+    this.routerUnsubscribe = () => {
+      dispatcher.off("initStateChange", this.boundOnInitStateChange);
+      dispatcher.off("transitionCompleted", this.boundOnTransitionCompleted);
+    };
+
     window.addEventListener("scroll", this.boundUpdateShineFromScroll, {
       passive: true,
     });
     window.addEventListener("resize", this.boundUpdateShineFromScroll);
+    window.addEventListener("resize", this.boundUpdateHeightToPage);
+    this.resizeObserver = new ResizeObserver(() => this.updateHeightToPage());
+    this.resizeObserver.observe(document.body);
     if (window.matchMedia("(pointer: fine)").matches) {
       window.addEventListener("mousemove", this.boundUpdateShineFromPointer);
     }
   }
 
   protected disconnectedCallback(): void {
+    this.routerUnsubscribe?.();
+    this.routerUnsubscribe = null;
     if (this.shineRafId !== null) {
       cancelAnimationFrame(this.shineRafId);
       this.shineRafId = null;
     }
+    this.resizeObserver?.disconnect();
+    this.resizeObserver = null;
     window.removeEventListener("scroll", this.boundUpdateShineFromScroll);
     window.removeEventListener("resize", this.boundUpdateShineFromScroll);
+    window.removeEventListener("resize", this.boundUpdateHeightToPage);
     window.removeEventListener("mousemove", this.boundUpdateShineFromPointer);
     super.disconnectedCallback();
   }
