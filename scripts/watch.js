@@ -23,6 +23,7 @@ const IGNORED_FILES = new Set([
   'galerie.html',
   'kontakt.html',
   'impressum.html',
+  'datenschutz.html',
 ]);
 
 function isIgnored(filename) {

@@ -53,6 +53,7 @@ function loadLocals(contentDir) {
   const about = loadMarkdown(contentDir, 'about.md');
   const quality = loadMarkdown(contentDir, 'quality.md');
   const impressum = loadMarkdown(contentDir, 'impressum.md');
+  const datenschutz = loadMarkdown(contentDir, 'datenschutz.md');
 
   return {
     site,
@@ -62,6 +63,7 @@ function loadLocals(contentDir) {
     about,
     quality,
     impressum,
+    datenschutz,
     formatPrice,
     // Logo assets: files live in src/public/assets/ (copied to output by Vite); paths relative to site root
     logoBase: 'assets/dasfrittierwerk_logo-animation.avif',
