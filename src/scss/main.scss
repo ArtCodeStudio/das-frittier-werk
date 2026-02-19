@@ -30,6 +30,18 @@
 // Global custom styles
 // Bootstrap already applies $headings-font-family and $headings-color to h1-h6 via variables
 
+// German word hyphenation
+// hyphens: auto is well-supported (Chrome 55+, Firefox 6+, Safari 5.1+)
+// hyphenate-limit-* properties have limited support (Chrome 109+, Firefox 137+)
+html {
+  hyphens: auto;
+}
+
+body {
+  word-break: break-word; // Fallback for long words
+  overflow-wrap: break-word; // Modern property name
+}
+
 section {
   padding: $section-padding-y 0;
 }
