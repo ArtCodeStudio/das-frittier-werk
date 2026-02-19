@@ -5,9 +5,6 @@ import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 import templateHtml from "./dfw-background-gears.component.html?raw";
 import gear1Url from "../../../assets/gears/gear_01.svg?url";
 import gear2Url from "../../../assets/gears/gear_02.svg?url";
-import gear3Url from "../../../assets/gears/gear_03.svg?url";
-import gear4Url from "../../../assets/gears/gear_04.svg?url";
-import gear5Url from "../../../assets/gears/gear_05.svg?url";
 
 const ROUTER_VIEW_ID = "main";
 
@@ -53,12 +50,13 @@ export class DfwBackgroundGearsComponent extends Component {
   private shineX = "10%";
   private shineY = "50%";
 
+  /** Five gears using only gear_01 and gear_02 assets (gears 3–5 no longer exist). */
   private static readonly GEAR_BASE = [
     { src: gear1Url, speed: 0.22, class: "bg-gear--1", maskStyle: { "--gear-mask": `url("${gear1Url}")` } },
-    { src: gear2Url, speed: -0.28, class: "bg-gear--2", maskStyle: { "--gear-mask": `url("${gear2Url}")` } },
-    { src: gear3Url, speed: 0.26, class: "bg-gear--3", maskStyle: { "--gear-mask": `url("${gear3Url}")` } },
-    { src: gear4Url, speed: -0.2, class: "bg-gear--4", maskStyle: { "--gear-mask": `url("${gear4Url}")` } },
-    { src: gear5Url, speed: 0.32, class: "bg-gear--5", maskStyle: { "--gear-mask": `url("${gear5Url}")` } },
+    { src: gear1Url, speed: -0.28, class: "bg-gear--2", maskStyle: { "--gear-mask": `url("${gear1Url}")` } },
+    { src: gear1Url, speed: 0.26, class: "bg-gear--3", maskStyle: { "--gear-mask": `url("${gear1Url}")` } },
+    { src: gear2Url, speed: -0.2, class: "bg-gear--4", maskStyle: { "--gear-mask": `url("${gear2Url}")` } },
+    { src: gear2Url, speed: 0.32, class: "bg-gear--5", maskStyle: { "--gear-mask": `url("${gear2Url}")` } },
   ] as const;
 
   /** Set gears container height to full page height so gear positions (top: X%) distribute along the page. */
