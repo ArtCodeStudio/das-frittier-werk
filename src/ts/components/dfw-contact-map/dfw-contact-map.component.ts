@@ -50,11 +50,14 @@ export class DfwContactMapComponent extends Component {
   protected connectedCallback() {
     super.connectedCallback();
     this.init(DfwContactMapComponent.observedAttributes);
+    // If the component is already bound, center it immediately
+    if(this.bound) {
+      this.center();
+    }
   }
 
   protected async afterBind() {
     await super.afterBind();
-    // Center once (e.g. when img already cached and load already fired)
     this.center();
     window.addEventListener("resize", this.boundCenter, { passive: true });
   }
