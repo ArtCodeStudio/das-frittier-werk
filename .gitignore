@@ -135,12 +135,7 @@ dist
 !.yarn/versions
 
 # Pug plugin compiled HTML (generated at build time)
-src/index.html
-src/ueber-uns.html
-src/qualitaet.html
-src/galerie.html
-src/kontakt.html
-src/impressum.html
+src/*.html
 
 # Build output
 _site/
