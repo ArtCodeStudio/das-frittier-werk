@@ -1,0 +1,15 @@
+dfw-scroll-visibility {
+  display: block;
+  /* No size in flow; fixed child is out of flow. visibility on host hides the button. */
+}
+
+dfw-scroll-visibility[data-visible="false"] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+dfw-scroll-visibility[data-visible="true"] {
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}

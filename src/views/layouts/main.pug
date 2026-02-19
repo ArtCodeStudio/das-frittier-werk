@@ -18,5 +18,6 @@ html(lang='de')
       router-view#main(listen-all-links='true')
         block content
       include ../partials/footer.pug
-      include ../partials/fixed-call-button.pug
+      dfw-scroll-visibility
+        include ../partials/fixed-call-button.pug
     script(src=basePath + '/ts/main.ts', type='module')
