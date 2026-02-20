@@ -18,6 +18,10 @@ html(lang='de')
       router-view#main(listen-all-links='true')
         block content
       include ../partials/footer.pug
-      dfw-scroll-visibility
-        include ../partials/fixed-call-button.pug
+      dfw-fixed-call-button
+        a.btn.btn-primary.position-fixed.bottom-0.end-0.m-3.m-md-4.text-uppercase.fw-bold.z-offcanvas-backdrop(
+          href='tel:' + contact.phone.replace(/\s/g, '')
+        )
+          | Jetzt anrufen
+
     script(src=basePath + '/ts/main.ts', type='module')

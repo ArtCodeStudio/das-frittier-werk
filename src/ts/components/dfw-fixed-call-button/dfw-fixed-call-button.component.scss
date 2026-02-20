@@ -1,15 +1,15 @@
-dfw-scroll-visibility {
+dfw-fixed-call-button {
   display: block;
   /* No size in flow; fixed child is out of flow. visibility on host hides the button. */
 }
 
-dfw-scroll-visibility[data-visible="false"] {
+dfw-fixed-call-button[data-visible="false"] {
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-dfw-scroll-visibility[data-visible="true"] {
+dfw-fixed-call-button[data-visible="true"] {
   transition: opacity 0.2s ease, visibility 0.2s ease;
 }

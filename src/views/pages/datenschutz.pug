@@ -3,6 +3,6 @@ extends ../layouts/main.pug
 block content
   - const pageTitle = datenschutz.title || 'Datenschutzerklärung'
   section(id=slugify(pageTitle))
-    .container
+    .container.text-hyphenate
       h2.section-title.text-shine= pageTitle
       .page-content!= datenschutz.html

@@ -2,17 +2,14 @@ import { Component } from "@ribajs/core";
 import { debounceF } from "@ribajs/utils/src/control.js";
 import { hasChildNodesTrim } from "@ribajs/utils/src/dom.js";
 
-const VISIBLE_SCROLL_START = 0.1; // show after 10% from top
-const VISIBLE_SCROLL_END = 0.9;   // hide again in last 10%
+const HIDE_SCROLL_END = 0.9; // hide in last 10% of scroll range
 
 /**
- * Wrapper component that shows its child content only when the page is scrolled
- * in the "middle" 80% (between 10% and 90% of scroll range). Use for fixed
- * elements like a call button that should be hidden near the top and bottom.
- * Pass the content as child nodes (like dfw-contact-map).
+ * Fixed call button component that shows the button at the top of the page
+ * and hides it only when the user scrolls to the bottom (last 10%).
  */
-export class DfwScrollVisibilityComponent extends Component {
-  public static tagName = "dfw-scroll-visibility";
+export class DfwFixedCallButtonComponent extends Component {
+  public static tagName = "dfw-fixed-call-button";
 
   protected autobind = true;
 
@@ -20,21 +17,21 @@ export class DfwScrollVisibilityComponent extends Component {
     return [];
   }
 
+  public scope: Record<string, never> = {};
+
   private debouncedUpdateVisibility!: () => void;
   private readonly boundUpdateVisibility = () => this.debouncedUpdateVisibility();
 
   protected connectedCallback() {
     super.connectedCallback();
-    this.setAttribute("data-visible", "false");
-    this.init(DfwScrollVisibilityComponent.observedAttributes);
+    this.setAttribute("data-visible", "true");
+    this.init(DfwFixedCallButtonComponent.observedAttributes);
 
     this.debouncedUpdateVisibility = debounceF(() => {
       if (!this.isConnected) return;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-      const visible =
-        maxScroll <= 0 ||
-        (window.scrollY >= maxScroll * VISIBLE_SCROLL_START &&
-         window.scrollY <= maxScroll * VISIBLE_SCROLL_END);
+      // Hide only in the last 10% of scroll range, visible everywhere else (including top)
+      const visible = maxScroll <= 0 || window.scrollY <= maxScroll * HIDE_SCROLL_END;
       this.setAttribute("data-visible", visible ? "true" : "false");
     });
   }
@@ -58,6 +55,6 @@ export class DfwScrollVisibilityComponent extends Component {
     if (hasChildNodesTrim(this)) {
       return null;
     }
-    return `<p>Provide child content to show in the middle 80% scroll range.</p>`;
+    return `<p>Provide child content for the fixed call button.</p>`;
   }
 }

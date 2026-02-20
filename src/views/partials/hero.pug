@@ -2,7 +2,5 @@ section#hero.hero-section.text-center.py-5
   .container
     p.hero-subtitle.fw-semibold.fs-3.mt-4= site.hero_subtitle || 'Dein Imbisstaurant für krossen Geschmack'
     p.hero-location.fs-5.mb-4= contact.location
-    p.hero-subtitle.hero-subtitle--secondary.fw-semibold.fs-3= site.hero_cta_text || 'Jetzt telefonisch bestellen & kross abholen'
-    a.btn.btn-order.mt-4.mb-4(href='tel:' + contact.phone.replace(/\s/g, ''))= site.hero_cta_button || 'Jetzt anrufen'
-    .mb-4.mt-5
+    .pt-6.my-6
       include logo
