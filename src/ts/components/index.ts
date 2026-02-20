@@ -2,3 +2,4 @@ export { DfwBackgroundGearsComponent } from "./dfw-background-gears/dfw-backgrou
 export { DfwContactMapComponent } from "./dfw-contact-map/dfw-contact-map.component.js";
 export { DfwGalleryComponent } from "./dfw-gallery/dfw-gallery.component.js";
 export { DfwFixedCallButtonComponent } from "./dfw-fixed-call-button/dfw-fixed-call-button.component.js";
+export { DfwDirectionsSelectorComponent } from "./dfw-directions-selector/dfw-directions-selector.component.js";

@@ -14,6 +14,18 @@ location: "Cuxhaven Nordseeküste"
 hours: "11 - 20 Uhr"
 order_hint: "Jetzt bestellen & kross abholen!"
 
-# Routing/Anfahrt: OpenStreetMap Directions (frei, siehe wiki.openstreetmap.org/wiki/Routing)
+# Routing/Anfahrt: Multiple routing services available via directions selector
 # Destination lat,lon – Feuerweg 1, Wurster Nordseeküste
 directions_url: "https://www.openstreetmap.org/directions?to=53.7775117%2C8.6185018"
+
+# Directions services for routing selector modal
+directions_services:
+  - name: "OpenRouteService"
+    url: "https://maps.openrouteservice.org/#/directions/Feuerweg,Wurster%20Nordseek%C3%BCste,NI,Deutschland/An%20der%20Bahn,Nordholz,NI,Deutschland/data/55,130,32,198,15,97,4,224,38,9,96,59,2,24,5,192,166,6,113,0,184,64,14,0,232,3,96,1,128,70,0,152,5,96,29,128,26,106,6,100,54,218,1,102,188,246,6,226,56,242,249,216,86,175,150,169,82,1,57,217,52,168,197,155,90,213,39,149,36,216,123,114,77,240,135,162,2,0,7,84,240,34,38,195,148,0,47,40,1,109,115,148,151,160,244,8,0,205,224,1,183,75,132,43,168,168,1,104,1,221,144,60,1,172,144,1,205,116,65,157,209,93,209,161,209,16,193,188,240,147,32,108,109,147,97,209,96,64,1,124,10,128"
+  - name: "Google Maps"
+    url: "https://www.google.de/maps/place/Feuerweg+1,+27639+Wurster+Nordseeküste/@53.7774499,8.6184777"
+  - name: "Apple Maps"
+    url: "https://maps.apple.com/directions?destination=Feuerweg+1%2C+Feuerweg+1+27639+Wurster+Nordseek%C3%BCste+Deutschland&mode=driving"
+
+# Label for directions button
+label_directions_button: "Anfahrt berechnen"

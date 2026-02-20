@@ -174,6 +174,9 @@ $btn-primary-color: $dark-bg;
 $btn-primary-hover-bg: $gold-light;
 $btn-primary-hover-border-color: $gold-dark;
 
+// Button close (used in modals)
+$btn-close-color: $navbar-dark-hover-color; // Same as navbar hover: $gold
+
 // Footer
 $footer-bg: rgba(26, 15, 10, 0.8);
 $footer-border-width: $navbar-border-width;
@@ -183,6 +186,30 @@ $footer-link-color: $gold-light;
 $footer-text-color: $gray-400;
 $footer-label-color: $gold-dark;
 $footer-copyright-color: $gray-400;
+
+// Modal variables - matching navbar and footer style
+// Override Bootstrap's default modal variables
+$modal-inner-padding: $spacer;
+$modal-dialog-margin: $spacer * 0.5;
+$modal-dialog-margin-y-sm-up: $spacer * 1.75;
+$modal-title-line-height: $line-height-base;
+$modal-content-bg: $footer-bg; // Same as footer: rgba(26, 15, 10, 0.8)
+$modal-content-color: $navbar-dark-color; // Same as navbar: $cream
+$modal-content-border-color: $navbar-border-color; // Same as navbar: $gold-dark
+$modal-content-border-width: $navbar-border-width;
+$modal-content-border-radius: $border-radius;
+$modal-content-box-shadow-xs: 0 0.25rem 0.5rem rgba($dark-bg, 0.5);
+$modal-content-box-shadow-sm-up: 0 0.5rem 1rem rgba($dark-bg, 0.5);
+$modal-backdrop-bg: $dark-bg;
+$modal-backdrop-opacity: 0.7;
+$modal-header-border-color: transparent; // Same as navbar: $gold-dark
+$modal-footer-border-color: $modal-header-border-color;
+$modal-header-border-width: $navbar-border-width;
+$modal-footer-border-width: $modal-header-border-width;
+$modal-header-padding-y: $spacer;
+$modal-header-padding-x: $spacer;
+$modal-header-padding: $modal-header-padding-y $modal-header-padding-x;
+$modal-footer-bg: null; // No footer background (transparent)
 
 // Z-index (Bootstrap variables)
 // Navbar uses $zindex-fixed (default 1030), button needs higher

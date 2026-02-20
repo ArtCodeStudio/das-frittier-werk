@@ -18,8 +18,12 @@ block content
               p.contact-value.mb-0= contact.hours
             .contact-block.mb-4
               h3.contact-label.text-shine.text-uppercase.mb-1= contact.label_directions || 'Anfahrt'
-              p.contact-value.mb-0
-                a.contact-link(href=contact.directions_url, target='_blank', rel='noopener noreferrer')= contact.address
+              p.contact-value.mb-0= contact.address
+              button.btn.btn-primary.mt-2(
+                type='button',
+                data-directions-trigger='true'
+              )= contact.label_directions_button || 'Anfahrt berechnen'
+          dfw-directions-selector
         .col-12.col-md-7.px-0
           dfw-contact-map
             .map-scroll-wrapper.scrollbar-invisible(rv-scrollbar-draggable rv-element="scrollWrapperEl")

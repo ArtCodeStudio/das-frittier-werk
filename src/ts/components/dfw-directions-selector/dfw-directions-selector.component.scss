@@ -1,0 +1,58 @@
+dfw-directions-selector {
+  display: block;
+}
+
+// Styles for directions modal (rendered by bs5-notification-container)
+// Match navbar and footer styling with blur and transparency
+// Uses Bootstrap modal variables
+.modal-primary {
+  .modal-content {
+    background-color: $modal-content-bg; // Uses Bootstrap variable: rgba(26, 15, 10, 0.8) - same as footer
+    backdrop-filter: blur(10px); // Same blur as navbar
+    -webkit-backdrop-filter: blur(10px); // Safari support
+    border-color: $modal-content-border-color !important; // Uses Bootstrap variable: $gold-dark - same as navbar
+    color: $modal-content-color !important; // Uses Bootstrap variable: $cream - same text color as navbar
+  }
+
+  .modal-header {
+    background-color: transparent !important; // Transparent header background
+    border-bottom-color: $modal-header-border-color !important; // Uses Bootstrap variable: $gold-dark
+  }
+
+  .modal-title {
+    font-family: $headings-font-family;
+    font-weight: $headings-font-weight;
+    color: $navbar-dark-hover-color; // $gold - same as navbar hover
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .modal-body {
+    background-color: transparent !important; // Transparent body background
+    color: $modal-content-color !important; // Uses Bootstrap variable: $cream - same text color as navbar
+  }
+}
+
+// Styles for directions service buttons in modal
+.directions-service-btn {
+  min-height: 44px; // Minimum touch target size for mobile
+  padding: $btn-padding-y $btn-padding-x;
+  font-family: $btn-font-family;
+  font-weight: $btn-font-weight;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  // Ensure full width on mobile
+  @media (max-width: 575.98px) {
+    width: 100%;
+  }
+}
